@@ -6,4 +6,5 @@
  *
  */
 module problemaCaixeiroViajante {
+	requires java.logging;
 }
