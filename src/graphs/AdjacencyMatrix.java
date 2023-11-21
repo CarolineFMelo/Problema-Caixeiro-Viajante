@@ -2,14 +2,14 @@ package graphs;
 
 import java.util.ArrayList;
 
-public class AdjacencyMatrixGraph {
+public class AdjacencyMatrix {
 
 	public double weights[][];
 	public String[] line = null;
 	public ArrayList<Vertex> vertices = new ArrayList<Vertex>();
 	public ArrayList<Edge> edges = new ArrayList<Edge>();
 	
-	public AdjacencyMatrixGraph(ArrayList<String> file) throws Exception {
+	public AdjacencyMatrix(ArrayList<String> file) throws Exception {
 		int numVertices = Integer.parseInt(file.get(0));
 		this.weights = new double[numVertices][numVertices];
 		

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import file.FileManager;
 
-public class NewGraph {
+public class Graph {
 	
-	public AdjacencyMatrixGraph graph;
+	public AdjacencyMatrix graph;
 
-	public AdjacencyMatrixGraph loadGraph(String path) throws Exception {
+	public AdjacencyMatrix loadGraph(String path) throws Exception {
 		//open the file containing graph
 		ArrayList<String> file = FileManager.stringReader(path);
 		if(file == null) {
@@ -16,7 +16,7 @@ public class NewGraph {
         }
 		System.out.println(file);
 		
-		this.graph = new AdjacencyMatrixGraph(file);
+		this.graph = new AdjacencyMatrix(file);
 		
 		return null;
 	}
