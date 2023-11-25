@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class AdjacencyMatrix {
 
-	public double weights[][];
+	public int weights[][];
 	public String[] line = null;
 	public ArrayList<Vertex> vertices = new ArrayList<Vertex>();
 	public ArrayList<Edge> edges = new ArrayList<Edge>();
 	
 	public AdjacencyMatrix(ArrayList<String> file) throws Exception {
 		int numVertices = Integer.parseInt(file.get(0));
-		this.weights = new double[numVertices][numVertices];
+		this.weights = new int[numVertices][numVertices];
 		
 		//add the vertices to the ArrayList
 		for(int i = 1; i < file.size(); i++) {
@@ -43,9 +43,20 @@ public class AdjacencyMatrix {
 		this.weights[origin.id()][destiny.id()] = 1;
 	}
 	
-	public void addEdge(Vertex origin, Vertex destiny, double weight) {
+	public void addEdge(Vertex origin, Vertex destiny, int weight) {
 		edges.add(new Edge(origin, destiny, weight));
 		this.weights[origin.id()][destiny.id()] = weight;
 	}
 	
+	public ArrayList<Integer> adjVertices(int node) {
+        ArrayList<Integer> adj = new ArrayList<>();
+        
+        for(int j = 0; j < this.weights.length; j++) {
+            if(node != j && this.weights[node][j] != 0) {
+                adj.add(j);
+            }
+        }
+        
+        return adj;
+    }
 }
