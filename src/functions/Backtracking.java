@@ -10,12 +10,11 @@ public class Backtracking {
     private static AdjacencyMatrix adjGraph;
     private int v;
     private int pos = 0;
-    private static int node = 0;;
     private static int bestCurrentPath[];
     private static int lowerCostPath = Integer.MAX_VALUE;
     private int solutionPath[];
     private boolean available[];
-    private static int cost;
+	private static int cost = 0;
 
     public Backtracking(AdjacencyMatrix g) {
         graph = g.weights;
@@ -31,18 +30,12 @@ public class Backtracking {
         solutionPath[0] = 0;
         pos++;
         
-        btFunc(pos, v, available, solutionPath);
+        btFunc(0, pos, v, available, solutionPath);
     }
 
-    public static void btFunc(int pos, int graphSize, boolean spare[], int solution[]) {
+    public static void btFunc(int node, int pos, int graphSize, boolean spare[], int solution[]) {
     	if(pos == graphSize) {
-    		cost = 0;
-    		for(int i = 0; i < graphSize - 1; i++) {
-    		    int origin = solution[i];
-    		    int destiny = solution[i + 1];
-    		    cost += graph[origin][destiny];
-    		}
-    		cost += graph[solution[graphSize - 1]][solution[0]];
+    		cost += graph[solution[pos - 1]][0];
     		
     		if(cost < lowerCostPath) {
     			lowerCostPath = cost;
@@ -50,6 +43,7 @@ public class Backtracking {
         			bestCurrentPath[i] = solution[i];
         		}
     		}
+    		cost -= graph[solution[pos - 1]][0];
     	}
     	else {
     		ArrayList<Integer> adjVertices = adjGraph.adjVertices(node);
@@ -57,12 +51,17 @@ public class Backtracking {
     		for(int i : adjVertices) {
     			if(spare[i] == true) {
     				solution[pos] = i;
+    				cost += graph[node][i]; //partial solution
     				spare[i] = false;
     				pos++;
-    				node = i;
-    				btFunc(pos, graphSize, spare, solution);
+    				
+    				if(cost < lowerCostPath) {
+    					btFunc(i, pos, graphSize, spare, solution);
+    				}
+    				
     				pos--;
     				spare[i] = true;
+    				cost -= graph[node][i];
     			}
     		}
     	}
@@ -81,4 +80,5 @@ public class Backtracking {
 	        }
         }
     }
+    
 }
