@@ -19,7 +19,7 @@ public class Backtracking {
     public Backtracking(AdjacencyMatrix g) {
         graph = g.weights;
         adjGraph = g;
-        v = g.vertices.size();
+        v = g.weights.length;
         bestCurrentPath = new int[v];
         solutionPath = new int[v];
         available = new boolean[v];

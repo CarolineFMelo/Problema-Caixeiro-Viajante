@@ -5,13 +5,17 @@ import java.util.ArrayList;
 public class AdjacencyMatrix {
 
 	public int weights[][];
+	public int baseGraph[][];
+	public int maxNumVertices;
 	public String[] line = null;
 	public ArrayList<Vertex> vertices = new ArrayList<Vertex>();
 	public ArrayList<Edge> edges = new ArrayList<Edge>();
 	
-	public AdjacencyMatrix(ArrayList<String> file) throws Exception {
+	public AdjacencyMatrix(ArrayList<String> file, String maxNumVertices) throws Exception {
 		int numVertices = Integer.parseInt(file.get(0));
-		this.weights = new int[numVertices][numVertices];
+		this.baseGraph = new int[numVertices][numVertices];
+		this.maxNumVertices = Integer.parseInt(maxNumVertices);
+		this.weights = new int[this.maxNumVertices][this.maxNumVertices];
 		
 		//add the vertices to the ArrayList
 		for(int i = 1; i < file.size(); i++) {
@@ -19,6 +23,7 @@ public class AdjacencyMatrix {
 			vertices.add(new Vertex(Integer.parseInt(line[0])));
 		}
 		
+		//load base graph
 		for(int i = 1; i < file.size(); i++) {
 			line = file.get(i).split(" ");
 			
@@ -36,16 +41,23 @@ public class AdjacencyMatrix {
 				}
 			}
 		}
+		
+		//load specific graph
+		for(int i = 0; i < this.maxNumVertices; i++) {
+		    for(int j = 0; j < this.maxNumVertices; j++) {
+		    	weights[i][j] = baseGraph[i][j];
+		    }
+	    }
 	}
 	
 	public void addEdge(Vertex origin, Vertex destiny) {
 		edges.add(new Edge(origin, destiny));
-		this.weights[origin.id()][destiny.id()] = 1;
+		this.baseGraph[origin.id()][destiny.id()] = 1;
 	}
 	
 	public void addEdge(Vertex origin, Vertex destiny, int weight) {
 		edges.add(new Edge(origin, destiny, weight));
-		this.weights[origin.id()][destiny.id()] = weight;
+		this.baseGraph[origin.id()][destiny.id()] = weight;
 	}
 	
 	public ArrayList<Integer> adjVertices(int node) {
