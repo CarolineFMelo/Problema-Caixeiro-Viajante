@@ -55,6 +55,7 @@ public class Backtracking {
     				spare[i] = false;
     				pos++;
     				
+    				//limit
     				if(cost < lowerCostPath) {
     					btFunc(i, pos, graphSize, spare, solution);
     				}

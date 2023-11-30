@@ -15,8 +15,6 @@ public class ProgramExecution {
 		System.out.println("Digite o caminho para o arquivo:");
 		String path = scn.nextLine();
 		
-		path = "C:\\Users\\cferr\\workspace\\6-periodo\\projeto_analise_algoritmos\\problemaCaixeiroViajante\\src\\file\\teste.txt";
-		
 		//open the file containing graph
 		ArrayList<String> file = FileManager.stringReader(path);
 		if(file == null) {
